@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
-  const yesButtonSize = noCount * 20 + 16;
+  const yesButtonSize = Math.min(noCount * 10 + 16, 100); // Limit size growth
 
   const handleNoClick = () => {
     setNoCount(noCount + 1);
@@ -22,41 +22,49 @@ export default function Page() {
       "Give it another thought!",
       "Are you absolutely certain?",
       "This could be a mistake!",
-      "Have a heart Diana!",
+      "Have a heart!",
       "Don't be so cold!",
       "Change of heart?",
       "Wouldn't you reconsider?",
       "Is that your final answer?",
       "You're breaking my heart ;(",
     ];
-
     return phrases[Math.min(noCount, phrases.length - 1)];
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen -mt-16">
+    <div className="flex flex-col items-center justify-center h-screen bg-pink-100">
       {yesPressed ? (
         <>
-        <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
-        <div className="text-4xl font-bold my-4">Ok yay!!!</div>
+          <img
+            src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
+            alt="Happy bear kiss"
+          />
+          <div className="text-4xl font-bold my-4 text-red-600">Yay! 💖</div>
         </>
       ) : (
         <>
-          <img className="h-[200px]" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif" />
-          <h1 className="text-4xl my-4">Will you be my Valentine?</h1>
-          <div>
+          <img
+            className="h-[200px] rounded-lg shadow-lg"
+            src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"
+            alt="Cute bear with roses"
+          />
+          <h1 className="text-4xl my-4 text-center font-semibold text-pink-700">
+            Will you be my Valentine? 💘
+          </h1>
+          <div className="flex gap-4">
             <button
-              className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4`}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-lg transition-all duration-300"
               style={{ fontSize: yesButtonSize }}
               onClick={() => setYesPressed(true)}
             >
-              Yes
+              Yes 💚
             </button>
             <button
               onClick={handleNoClick}
-              className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-lg transition-all duration-300"
             >
-              {noCount === 0 ? "No" : getNoButtonText()}
+              {getNoButtonText()}
             </button>
           </div>
         </>
